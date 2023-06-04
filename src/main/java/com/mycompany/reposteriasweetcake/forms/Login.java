@@ -20,8 +20,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         
-        this.txtEmail.setText("user1@example.com");
-        this.txtPassword.setText("password1");
+        //this.txtEmail.setText("user1@example.com");
+        //this.txtPassword.setText("password1");
     }
        
 
