@@ -15,6 +15,10 @@ public class PedidoLocal {
         this.nombreCliente = nombreCliente;
         this.codigoVenta = codigoVenta;
     }
+    
+    public PedidoLocal(){
+        
+    }
 
     // Getters and Setters ...
 

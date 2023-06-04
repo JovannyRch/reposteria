@@ -10,6 +10,7 @@ import com.mycompany.reposteriasweetcake.DTO.Pedido;
 import com.mycompany.reposteriasweetcake.DTO.Producto;
 import com.mycompany.reposteriasweetcake.DTO.ProductoPersonalizado;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 public class Home extends javax.swing.JFrame {
@@ -21,8 +22,10 @@ public class Home extends javax.swing.JFrame {
     
     ArrayList<Producto> productosPredeterminados;
     ArrayList<ProductoPersonalizado> productosPersonalizados;
+    ArrayList<Producto> productosCarrito;
     
     int totalEnCarrito = 0; 
+    double total;
     
     /**
      * Creates new form Home
@@ -33,6 +36,7 @@ public class Home extends javax.swing.JFrame {
         this.productos = db.getProductos();
         this.productosPredeterminados = new ArrayList<>();
         this.productosPersonalizados = new ArrayList<>();
+        this.productosCarrito = new ArrayList<>();
         initComponents();
         
         
@@ -65,10 +69,17 @@ public class Home extends javax.swing.JFrame {
     }
     
     public void updateTotalLabel(){
+        
+        this.total = 0;
+        
+        for(Producto p: this.productosCarrito){
+            total += p.getPrecio();
+        }
+        total = Math.ceil(total);
         switch (this.totalEnCarrito) {
             case 0 -> this.labelTotalCarrito.setText("Carrito vacío");
-            case 1 -> this.labelTotalCarrito.setText("1 producto");
-            default -> this.labelTotalCarrito.setText(this.totalEnCarrito+" productos");
+            case 1 -> this.labelTotalCarrito.setText("1 producto: $"+total);
+            default -> this.labelTotalCarrito.setText(this.totalEnCarrito+" productos : $"+total);
         }
     }
 
@@ -84,8 +95,10 @@ public class Home extends javax.swing.JFrame {
     
     public void agregar(int indexProducto){
         if(indexProducto < this.productos.size()){
-            this.productosPredeterminados.add(this.productos.get(indexProducto));
+            Producto p = this.productos.get(indexProducto);
             
+            this.productosPredeterminados.add(p);
+            this.productosCarrito.add(p);
             this.updateTotal();
         }
     }
@@ -161,31 +174,37 @@ public class Home extends javax.swing.JFrame {
         jLabel2.setText("Carrito");
 
         btnCarrito.setText("Finalizar compra");
+        btnCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelTotalCarrito)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnCarrito)
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel2)))
-                .addGap(95, 95, 95))
+                .addContainerGap(210, Short.MAX_VALUE)
+                .addComponent(btnCarrito)
+                .addGap(177, 177, 177)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTotalCarrito, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnCarrito))
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTotalCarrito)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCarrito)
+                .addContainerGap())
         );
 
         panelProducto1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -583,7 +602,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelProducto4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelProducto6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -693,6 +712,17 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         personalizar(5);
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void btnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarritoActionPerformed
+        // TODO add your handling code here:
+        if(this.totalEnCarrito  == 0){
+            JOptionPane.showMessageDialog(null, "No hay productos en el carrito");
+            return;
+        }
+        this.setVisible(false);
+        new Carrito(this, this.productosPredeterminados, this.productosPersonalizados, total).setVisible(true);
+        
+    }//GEN-LAST:event_btnCarritoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

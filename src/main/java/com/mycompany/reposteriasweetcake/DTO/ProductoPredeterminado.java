@@ -8,6 +8,7 @@ public class ProductoPredeterminado {
 
     private int idProducto;
     private int idPedido;
+    private Producto producto;
 
     public ProductoPredeterminado(){
 
@@ -31,6 +32,14 @@ public class ProductoPredeterminado {
 
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     

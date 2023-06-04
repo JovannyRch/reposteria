@@ -153,8 +153,10 @@ public class PersonalizarProducto extends javax.swing.JFrame {
         personalizado.setIdProducto(this.producto.getIdProducto());
         personalizado.setIngredientes(ingredientes);
         personalizado.setTamanio(tamanio);
+        personalizado.setProducto(producto);
         
         this.homeView.productosPersonalizados.add(personalizado);
+        this.homeView.productosCarrito.add(this.producto);
         this.homeView.updateTotal();
    
         this.homeView.setVisible(true);

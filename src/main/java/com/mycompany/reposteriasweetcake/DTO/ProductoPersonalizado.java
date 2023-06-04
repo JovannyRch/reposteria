@@ -11,6 +11,7 @@ public class ProductoPersonalizado {
     private String tamanio;
     private String figura;
     private int idPedido;
+    private Producto producto;
     
     public ProductoPersonalizado(){
         
@@ -64,6 +65,14 @@ public class ProductoPersonalizado {
 
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
     
 }
