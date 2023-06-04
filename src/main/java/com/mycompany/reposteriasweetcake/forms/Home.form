@@ -165,7 +165,7 @@
                       <Component id="panelProducto4" min="-2" max="-2" attributes="0"/>
                       <Component id="panelProducto6" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="178" max="32767" attributes="0"/>
+                  <EmptySpace pref="172" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

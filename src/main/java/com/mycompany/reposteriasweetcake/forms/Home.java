@@ -58,6 +58,9 @@ public class Home extends javax.swing.JFrame {
     
     public void updateTotal(){
         this.totalEnCarrito = this.productosPredeterminados.size() + productosPersonalizados.size();
+        
+        
+        
         updateTotalLabel();
     }
     
@@ -71,7 +74,11 @@ public class Home extends javax.swing.JFrame {
 
     
     public void personalizar(int indexProducto){
-        
+        if(indexProducto < this.productos.size()){
+            Producto p =  this.productos.get(indexProducto);
+            new PersonalizarProducto(this, p).setVisible(true);
+            this.setVisible(false);
+        }
     }
     
     
@@ -576,7 +583,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelProducto4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelProducto6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
